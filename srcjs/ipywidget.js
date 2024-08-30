@@ -1,7 +1,9 @@
+import atlas from "https://esm.sh/azure-maps-control@3.3.0";
 import maplibregl from "https://esm.sh/maplibre-gl@3.6.2";
 import { Protocol } from "https://esm.sh/pmtiles@3.0.6";
 
-import "./css/maplibre-gl.css";
+// import "./css/maplibre-gl.css";
+import "./css/atlas.min.css";
 
 let protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -35,7 +37,28 @@ function updateModel(model, map) {
 }
 
 function createMap(mapOptions, model) {
-  const map = new maplibregl.Map(mapOptions);
+  const azm = new atlas.Map(mapOptions.container, {
+    ...mapOptions,
+    authOptions: {
+      authType: 'subscriptionKey',
+      subscriptionKey: mapOptions.subscriptionKey
+    }
+  });
+
+  azm.controls.add(
+    [
+        new atlas.control.StyleControl({
+            mapStyles: "all"
+        }),
+        new atlas.control.ZoomControl(),
+        new atlas.control.CompassControl(),
+        new atlas.control.PitchControl(),
+        new atlas.control.TrafficControl()
+    ],
+    { position: "top-right" }
+  );
+
+  const map = azm._getMap();
   /*
   if (mapOptions.navigationControl === undefined) {
     mapOptions.navigationControl = true;

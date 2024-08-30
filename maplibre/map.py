@@ -49,6 +49,7 @@ class MapOptions(BaseModel):
     pitch: Union[int, float] = None
     scroll_zoom: bool = Field(None, serialization_alias="scrollZoom")
     style: Union[str, Carto, dict] = construct_carto_basemap_url(Carto.DARK_MATTER)
+    subscription_key: str = Field(None, serialization_alias="subscriptionKey")
     zoom: Union[int, float] = None
 
     @field_validator("style")

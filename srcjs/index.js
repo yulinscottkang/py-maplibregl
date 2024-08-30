@@ -1,7 +1,7 @@
 import PyMapLibreGL from "./pymaplibregl";
 import { getViewState } from "./utils";
 
-const version = "0.2.6.1";
+const version = "0.2.7.2";
 console.log("py-maplibregl", version);
 
 if (typeof Shiny === "undefined") {
